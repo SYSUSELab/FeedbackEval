@@ -1,0 +1,83 @@
+{% if is_persona %}{{ persona }}
+{% endif %}Your task is to correct the given erroneous code @@Existing Code.
+@@Feedback includes error messages, descriptions of logical issues, or deviations from expected functionality.
+{% if docstring %}@@Docstring provides a description of the function, its purpose, and details of its input and output parameters.
+{% endif %}{% if context %}@@Oracle Context refers to code elements such as types, APIs, variables, and consts defined outside the function under generation but within the dependent third-party libraries, current class, file, or project.
+{% endif %}{% if problem_statement %}@@Problem Statement describes the user-reported issue or expected behavior.
+{% endif %}{% if is_cot %}You should follow the reasoning process below to fix the code:
+1. Carefully read the feedback and understand the essence of the problem.
+2. Check the parts of the code that might be causing these issues.
+3. Consider edge cases and special condition handling.
+4. Apply appropriate fixes while maintaining code style consistency.
+5. Verify whether the fix addresses all the issues mentioned in the feedback.
+{% endif %}{% if is_es_shot and best_example and best_example.erroneous_code and best_example.fixed_code %}For example:
+Erroneous Code:
+{{ best_example.erroneous_code }}
+
+Feedback:
+{{ best_example.feedback }}
+
+Fixed Code:
+{{ best_example.fixed_code }}
+{% endif %}{% if is_few_shot %}For example:
+Erroneous Code:
+def calculate_average(numbers):
+total = 0
+for num in numbers:
+    total += num
+return total / len(numbers)
+
+Feedback:
+Consider adding error handling to manage potential issues, such as division by zero when the input list is empty. 
+Additionally, using built-in functions like `sum()` can simplify the code and improve readability, making it more pythonic. 
+Finally, ensure that the function can handle non-numeric inputs to prevent runtime errors.
+
+Fixed Code:
+def calculate_average(numbers):
+if not numbers:
+    raise ValueError("Input list is empty. Cannot calculate average.")
+return sum(numbers) / len(numbers)
+{% endif %}
+@@Existing Code
+{{ solution }}
+{% if docstring %}
+@@Docstring
+{{ docstring }}
+{% endif %}{% if context %}
+@@Oracle Context
+{{ context }}
+{% endif %}{% if problem_statement %}
+@@Problem Statement
+{{ problem_statement }}
+{% endif %}
+@@Feedback
+{{ feedback }}
+{% if is_sg_icl %}
+First, generate a concrete example that demonstrates the issue described in the feedback, following the format below:
+Erroneous Code:
+[Example erroneous code that illustrates the issue]
+
+Feedback:
+[Example feedback that describes the specific problem]
+
+Fixed Code:
+[Example fixed code that resolves the issue]
+Then, use this example to guide your understanding and fix the actual code accordingly.
+{% endif %}{% if is_sa %}
+Before providing an answer, consider whether any follow-up questions are necessary to clarify the task. If so, raise and address them first. Then, fix the bug in the code and present only the corrected version.
+{% endif %}{% if is_sbp %}
+Before fixing the code, step back and analyze the problem holistically. Identify key concepts and main facts to guide your solution approach.
+{% endif %}{% if is_rr %}
+Before providing your solution, restate the problem in your own words to ensure complete understanding. Include any additional details or clarifications that would help fully grasp the issue. 
+{% endif %}{% if is_instructions %}
+Based on the provided information, fix the erroneous code and ensure the following:
+Resolve all errors to make the code functional.
+Address the improvement points mentioned in the feedback.
+Only need to fix the code; do not modify the function signature.
+{% if docstring %}Adhere to the functionality requirements described in the docstring.
+{% endif %}{% if context %}Utilize the external context (Oracle Context) information for proper API usage, variable references, and any related dependencies.
+{% endif %}{% endif %}
+The output must strictly adhere to the specified format, with all HTML tags included in their entirety:
+<repaired_code>
+Provide the corrected code here.
+</repaired_code>
