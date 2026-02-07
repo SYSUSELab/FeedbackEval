@@ -69,7 +69,8 @@ For the `CoderEval` dataset, the evaluation code uses a specific runtime environ
 Create a `.env` file in the project root to configure environment variables (e.g., API keys, concurrency settings).
 ```bash
 # .env example
-OPENAI_API_KEY=sk-...
+API_KEY=sk-...
+BASE_URL=""
 MAX_WORKERS=4
 ```
 
